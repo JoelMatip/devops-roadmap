@@ -7,4 +7,4 @@ This project tracks my progress through 30 days of hands-on DevOps practice.
 |-----|------------------------|--------|
 | 1   | Setup & Linux Basics   | ✅     |
 | 2   | Git & First Commit     | ✅     |
-| 3   | Shell Scripting        | ✅     |
+| 3   | Shell Scripting        | ✅     |# Trigger build
