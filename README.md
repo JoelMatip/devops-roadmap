@@ -1,10 +1,13 @@
-## 🚀 DevOps 30-Day Journey
+# DevOps Practice Project
 
-Welcome to my DevOps learning repo!  
-This project tracks my progress through 30 days of hands-on DevOps practice.
+This project demonstrates a basic Flask + Redis app with Docker and CI/CD using GitHub Actions.
 
-| Day | Topic                  | Status |
-|-----|------------------------|--------|
-| 1   | Setup & Linux Basics   | ✅     |
-| 2   | Git & First Commit     | ✅     |
-| 3   | Shell Scripting        | ✅     |# Trigger build
+## Features
+- Flask web app
+- Redis integration
+- Docker containerization
+- GitHub Actions for automated testing and Docker builds
+
+## How to Run
+```bash
+docker-compose up
