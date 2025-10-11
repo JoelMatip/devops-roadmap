@@ -10,4 +10,4 @@ This project demonstrates a basic Flask + Redis app with Docker and CI/CD using 
 
 ## How to Run
 ```bash
-docker-compose up
+docker-compose upTriggering CI pipeline
