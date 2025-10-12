@@ -14,3 +14,4 @@ docker-compose upTriggering CI pipeline
 Triggering CI pipeline
 Triggering CI again
 <!-- Triggering CI after fixing DockerHub Login -->Triggering CI after fixing DockerHub token scopes
+Fixing image name for Docker push
