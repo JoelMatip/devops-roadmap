@@ -16,3 +16,4 @@ Triggering CI again
 <!-- Triggering CI after fixing DockerHub Login -->Triggering CI after fixing DockerHub token scopes
 Fixing image name for Docker push
 Triggering CI after fixing workflow
+Tagging image as v1.0.0
