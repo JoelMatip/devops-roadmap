@@ -13,4 +13,4 @@ This project demonstrates a basic Flask + Redis app with Docker and CI/CD using 
 docker-compose upTriggering CI pipeline
 Triggering CI pipeline
 Triggering CI again
-<!-- Triggering CI after fixing DockerHub login -->
+<!-- Triggering CI after fixing DockerHub Login -->Triggering CI after fixing DockerHub token scopes
