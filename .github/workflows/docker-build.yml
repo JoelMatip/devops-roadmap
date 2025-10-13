@@ -38,7 +38,10 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build Docker image
-      run: docker build -t ajayks07/python-demo .
+      run: docker build -t ajayks07/python-demo:latest -t ajayks07/python-demo:v1.0.0 .
 
-    - name: Push image to DockerHub
-      run: docker push ajayks07/python-demo
+    - name: Push Docker image (latest)
+      run: docker push ajayks07/python-demo:latest
+
+    - name: Push Docker image (v1.0.0)
+      run: docker push ajayks07/python-demo:v1.0.0
