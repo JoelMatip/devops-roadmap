@@ -1,19 +1,27 @@
 from flask import Flask
 import redis
 import os
+import logging
 
 app = Flask(__name__)
-
-# Connect to Redis using environment variables
-redis_host = os.getenv("REDIS_HOST", "localhost")
-redis_port = int(os.getenv("REDIS_PORT", 6379))
-r = redis.Redis(host=redis_host, port=redis_port)
+logging.basicConfig(level=logging.DEBUG)
 
 @app.route('/')
 def hello():
-    r.incr('hits')
-    count = r.get('hits').decode('utf-8')
-    return f'Hello from Flask + Redis! I have been seen {count} times.'
+    try:
+        redis_url = os.getenv("REDIS_URL", "redis://localhost:6379")
+        r = redis.Redis.from_url(redis_url)
+        r.incr('hits')
+        count = r.get('hits').decode('utf-8')
+        return f'Hello from Flask + Redis! I have been seen {count} times.'
+    except Exception as e:
+        app.logger.error(f"Redis error: {e}")
+        return f'Redis error: {e}', 500
+
+@app.route('/health')
+def health():
+    return "App is healthy!", 200
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
