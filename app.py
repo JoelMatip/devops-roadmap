@@ -23,6 +23,6 @@ def health():
     return "App is healthy!", 200
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 8080))
-    print("Flask app is starting...")
+    port = int(os.environ.get("PORT", "5000"))  # default to 5000
+    print(f"Flask app is starting on port {port}...")
     app.run(host="0.0.0.0", port=port)
