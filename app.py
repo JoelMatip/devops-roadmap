@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 import redis
 import os
 
@@ -9,12 +9,7 @@ r = redis.Redis.from_url(redis_url)
 @app.route("/")
 def index():
     count = r.incr("hits")
-    return f"Hello! This page has been visited {count} times."
-
-@app.route("/health")
-def health():
-    return "App is healthy!"
+    return render_template("index.html", count=count)
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
