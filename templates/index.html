@@ -28,6 +28,7 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            margin: 5px;
         }
         button:hover {
             background-color: #005A9E;
@@ -53,23 +54,6 @@
         a:hover {
             text-decoration: underline;
         }
-        form {
-    margin: 20px auto;
-}
-
-button {
-    padding: 10px 15px;
-    background-color: #0078D4;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin: 5px;
-}
-
-button:hover {
-    background-color: #005A9E;
-}
     </style>
 </head>
 <body>
@@ -92,11 +76,11 @@ button:hover {
                 <li>{{ name }}</li>
             {% endfor %}
         </ul>
-    {% endif %}
 
-    <form action="/clear" method="post">
-        <button type="submit">Clear All Names</button>
-    </form>
+        <form action="/clear" method="post">
+            <button type="submit">Clear All Names</button>
+        </form>
+    {% endif %}
 
     <a href="/about">About</a>
 </body>
