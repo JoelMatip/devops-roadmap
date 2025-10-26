@@ -30,5 +30,10 @@ def submit():
     r.rpush("usernames", username)
     return redirect(url_for("index"))
 
+@app.route("/clear", methods=["POST"])
+def clear():
+    r.delete("usernames")
+    return redirect(url_for("index"))
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
