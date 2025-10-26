@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from flask import redirect, url_for
+from flask import request
 import redis
 import os
 
@@ -10,7 +11,10 @@ r = redis.Redis.from_url(redis_url)
 @app.route("/")
 def index():
     count = r.incr("hits")
-    return render_template("index.html", count=count)
+    name = r.get("username")
+    if name:
+        name = name.decode("utf-8")
+    return render_template("index.html", count=count, name=name)
 
 @app.route("/reset", methods=["POST"])
 def reset():
@@ -21,5 +25,10 @@ def reset():
 def about():
     return render_template("about.html", name="Ajay", version="1.0", redis_status=r.ping())
 
+@app.route("/submit", methods=["POST"])
+def submit():
+    username = request.form["username"]
+    r.set("username", username)
+    return redirect(url_for("index"))
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))

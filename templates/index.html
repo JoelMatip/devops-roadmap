@@ -13,6 +13,14 @@
     <form action="/reset" method="post">
         <button type="submit">Reset Counter</button>
     </form>
+    <form action="/submit" method="post">
+        <input type="text" name="username" placeholder="Enter your name" required>
+        <button type="submit">Submit</button>
+    </form>
+    
+    {% if name %}
+        <p>Hello, {{ name }}!</p>
+    {% endif %}
     <a href="/about">About</a>
 </body>
 </html>
