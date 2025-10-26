@@ -57,6 +57,9 @@
     </style>
 </head>
 <body>
+    {% if username %}
+      <p>Welcome back, {{ username }}!</p>
+    {% endif %}
     <h1>Hello!</h1>
     <p>This page has been visited {{ count }} times.</p>
 
