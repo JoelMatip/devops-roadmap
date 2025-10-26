@@ -11,10 +11,9 @@ r = redis.Redis.from_url(redis_url)
 @app.route("/")
 def index():
     count = r.incr("hits")
-    name = r.get("username")
-    if name:
-        name = name.decode("utf-8")
-    return render_template("index.html", count=count, name=name)
+    names = r.lrange("usernames", 0, -1)
+    names = [name.decode("utf-8") for name in names]
+    return render_template("index.html", count=count, names=names)
 
 @app.route("/reset", methods=["POST"])
 def reset():
@@ -28,7 +27,8 @@ def about():
 @app.route("/submit", methods=["POST"])
 def submit():
     username = request.form["username"]
-    r.set("username", username)
+    r.rpush("usernames", username)
     return redirect(url_for("index"))
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
