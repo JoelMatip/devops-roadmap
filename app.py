@@ -4,7 +4,8 @@ from datetime import datetime
 import os
 
 app = Flask(__name__)
-r = Redis(host='redis', port=6379)
+r = Redis.from_url(os.environ.get("REDIS_URL"))
+
 
 @app.route("/")
 def index():
