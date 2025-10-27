@@ -38,5 +38,10 @@ def clear():
 def about():
     return render_template("about.html", name="Ajay", version="1.0", redis_status=r.ping())
 
+@app.route("/logout")
+def logout():
+    session.pop("username", None)
+    return redirect(url_for("index"))
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))

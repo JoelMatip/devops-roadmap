@@ -85,6 +85,12 @@
         </form>
     {% endif %}
 
+    {% if username %}
+    <form action="/logout" method="get">
+        <button type="submit">Forget Me</button>
+    </form>
+{% endif %}
+
     <a href="/about">About</a>
 </body>
 </html>
