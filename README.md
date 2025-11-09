@@ -1,17 +1,19 @@
-# 🚀 Flask + Redis Cloud Counter
+# 🚀 Flask + Redis Visitor Logger
 
-A lightweight Flask web app that tracks page visits using Redis. Deployed on Render with Redis hosted on Railway.
+A lightweight, cloud-deployed Flask app that tracks page visits, stores user names with timestamps, and greets returning users using session management. Built for speed, clarity, and real-world deployment.
 
-![Demo](https://flask-redis-demo.onrender.com)
+![Live Demo](https://flask-redis-demo.onrender.com)
 
 ---
 
 ## 📌 Features
 
-- Counts and displays how many times the homepage has been visited
-- Uses Redis as a fast, in-memory key-value store
-- Cloud-native deployment with environment-based configuration
-- Logs and errors visible via Render dashboard
+- 🔢 Tracks homepage visits using Redis
+- 🧑 Accepts user name input and stores it with a timestamp
+- 🙋‍♂️ Greets returning users via Flask sessions
+- 🧼 “Forget Me” button to clear session and reset greeting
+- 🎨 Clean, responsive UI with semantic HTML/CSS
+- ☁️ Deployed on Render with Redis hosted on Railway
 
 ---
 
@@ -27,8 +29,9 @@ A lightweight Flask web app that tracks page visits using Redis. Deployed on Ren
 ---
 
 ## ⚙️ Setup & Deployment
+pip install -r requirements.txt
 
 ### 1. Clone the Repo
 ```bash
-git clone https://github.com/your-username/flask-redis-demo.git
+git clone https://github.com/JoelMatip/flask-redis-demo.git
 cd flask-redis-demo
