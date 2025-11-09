@@ -37,10 +37,14 @@ def index():
 
 @app.route("/submit", methods=["POST"])
 def submit():
-    username = request.form["username"]
+    username = request.form.get("username")
+    if not username:
+        return redirect(url_for("index"))
+
     session["username"] = username
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    r.rpush("usernames", str([username, timestamp]))
+    entry = str([username, timestamp])
+    r.rpush("usernames", entry)
     return redirect(url_for("index"))
 
 @app.route("/clear")
