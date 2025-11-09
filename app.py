@@ -14,7 +14,24 @@ r = Redis.from_url(os.environ.get("REDIS_URL"))
 def index():
     count = r.incr("hits")
     raw_entries = r.lrange("usernames", 0, -1)
-    names = [eval(entry.decode("utf-8")) for entry in raw_entries]  # [['Ajay', '2025-11-09 15:35'], ...]
+
+    names = []
+    for entry in raw_entries:
+        decoded = entry.decode("utf-8")
+        if decoded.startswith("[") and decoded.endswith("]"):
+            try:
+                name, timestamp = eval(decoded)
+                names.append([name, timestamp])
+            except:
+                continue
+        else:
+            # fallback for old format: "AJAY (2025-10-26 16:28:09)"
+            if "(" in decoded and ")" in decoded:
+                name_part, time_part = decoded.rsplit("(", 1)
+                name = name_part.strip()
+                timestamp = time_part.strip(") ")
+                names.append([name, timestamp])
+
     username = session.get("username")
     return render_template("index.html", count=count, names=names, username=username)
 
