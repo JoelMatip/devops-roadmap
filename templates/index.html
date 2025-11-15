@@ -1,121 +1,86 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <title>Flask Redis Demo</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #f4f4f4;
-            text-align: center;
-            padding: 50px;
-        }
-        h1, h3 {
-            color: #333;
-        }
-        form {
-            margin: 20px auto;
-        }
-        input[type="text"] {
-            padding: 10px;
-            width: 200px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            padding: 10px 15px;
-            background-color: #0078D4;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin: 5px;
-        }
-        button:hover {
-            background-color: #005A9E;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            background: #fff;
-            margin: 5px auto;
-            padding: 10px;
-            width: 250px;
-            border-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        a {
-            display: block;
-            margin-top: 30px;
-            color: #0078D4;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .tile {
-  background-color: #fff8dc;
-  padding: 20px;
-  border-radius: 10px;
-  margin-top: 30px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  width: 300px;
-  font-family: 'Segoe UI', sans-serif;
-}
-.tile h3 {
-  margin-bottom: 10px;
-  color: #333;
-}
-.tile p {
-  margin: 5px 0;
-  font-size: 16px;
-}
-    </style>
+  <meta charset="utf-8">
+  <title>Flask + Redis Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
 </head>
 <body>
-    {% if username %}
-      <p>Welcome back, {{ username }}!</p>
-    {% endif %}
-    <h1>Hello!</h1>
-    <p>This page has been visited {{ count }} times.</p>
+  <div class="container">
+    <header>
+      <h1>Flask + Redis Dashboard</h1>
+      {% if username %}
+        <p class="subtitle">Signed in as <strong>{{ username }}</strong></p>
+      {% else %}
+        <p class="subtitle">Not signed in</p>
+      {% endif %}
+    </header>
 
-    <form action="/reset" method="post">
-        <button type="submit">Reset Counter</button>
-    </form>
-
-    <form action="/submit" method="post">
-        <input type="text" name="username" placeholder="Enter your name" required>
-        <button type="submit">Submit</button>
-    </form>
-
-    {% if names %}
-        <h3>Submitted Names:</h3>
-        <ul>
-            {% for name in names %}
-                <li>{{ name }}</li>
-            {% endfor %}
-        </ul>
-
-        <form action="/clear" method="post">
-            <button type="submit">Clear All Names</button>
+    <section class="grid">
+      <!-- Submit form -->
+      <div class="tile">
+        <h3>Enter your name</h3>
+        <form method="post" action="{{ url_for('submit') }}" class="form">
+          <input type="text" name="username" placeholder="Your name" required>
+          <button type="submit">Submit</button>
         </form>
-    {% endif %}
+      </div>
 
-    {% if username %}
-    <form action="/logout" method="get">
-        <button type="submit">Forget Me</button>
-    </form>
-{% endif %}
-   
-{% if name_list %}
-<div class="tile">
-  <h3>Last Visitor</h3>
-  <p><strong>Name:</strong> {{ name_list[-1][0] }}</p>
-  <p><strong>Time:</strong> {{ name_list[-1][1] }}</p>
-</div>
-{% endif %}
+      <!-- Last Visitor tile -->
+      {% if last_visitor %}
+      <div class="tile">
+        <h3>👤 Last Visitor</h3>
+        <p><strong>Name:</strong> {{ last_visitor[0] }}</p>
+        <p><strong>Time:</strong> {{ last_visitor[1] }}</p>
+      </div>
+      {% endif %}
 
-    <a href="/about">About</a>
+      <!-- Welcome Back tile -->
+      {% if username and last_visit %}
+      <div class="tile welcome">
+        <h3>👋 Welcome Back, {{ username }}!</h3>
+        <p>You last visited at {{ last_visit }}</p>
+      </div>
+      {% endif %}
+
+      <!-- Analytics tile -->
+      <div class="tile analytics">
+        <h3>📊 Analytics</h3>
+        <p><strong>Total Visits:</strong> {{ count }}</p>
+        <p><strong>Unique Users:</strong> {{ unique_users }}</p>
+        <p><strong>Repeat Visits:</strong> {{ repeat_visits }}</p>
+      </div>
+
+      <!-- Users list -->
+      <div class="tile">
+        <h3>Visitors</h3>
+        {% if names %}
+          <ul class="list">
+            {% for name, ts in names %}
+              <li>
+                <span class="avatar">{{ name[:1].upper() }}</span>
+                <span class="entry"><strong>{{ name }}</strong> — {{ ts }}</span>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p>No visitors yet.</p>
+        {% endif %}
+      </div>
+
+      <!-- Admin clear (optional) -->
+      {% if admin_enabled %}
+      <div class="tile danger">
+        <h3>Admin: Clear Visitor List</h3>
+        <form method="post" action="{{ url_for('clear') }}" class="form">
+          <input type="password" name="admin_password" placeholder="Admin password" required>
+          <button type="submit" class="danger-btn">Clear</button>
+        </form>
+        <p class="note">This requires the correct admin password.</p>
+      </div>
+      {% endif %}
+    </section>
+  </div>
 </body>
 </html>

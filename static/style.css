@@ -1,0 +1,130 @@
+:root {
+    --bg: #f7f9fc;
+    --tile: #ffffff;
+    --text: #1f2937;
+    --muted: #6b7280;
+    --accent: #2563eb;
+    --accent-soft: #e0f2fe;
+    --success-soft: #e8f7ea;
+    --danger-soft: #fff0f0;
+  }
+  
+  * { box-sizing: border-box; }
+  
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Segoe UI, system-ui, -apple-system, sans-serif;
+  }
+  
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+  
+  header {
+    margin-bottom: 16px;
+  }
+  header h1 {
+    margin: 0 0 4px;
+  }
+  .subtitle {
+    margin: 0;
+    color: var(--muted);
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  
+  .tile {
+    background: var(--tile);
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    padding: 16px;
+  }
+  
+  .tile h3 {
+    margin: 0 0 8px;
+  }
+  
+  .form {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .form input[type="text"],
+  .form input[type="password"] {
+    flex: 1;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+  }
+  .form button {
+    padding: 10px 14px;
+    border: none;
+    border-radius: 8px;
+    background: var(--accent);
+    color: #fff;
+    cursor: pointer;
+  }
+  .form button:hover {
+    background: #1e4fd1;
+  }
+  
+  .welcome {
+    background: var(--success-soft);
+  }
+  
+  .analytics {
+    background: var(--accent-soft);
+  }
+  
+  .list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+  }
+  .list li:last-child {
+    border-bottom: none;
+  }
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #111827;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+  }
+  .entry {
+    color: var(--text);
+  }
+  
+  .danger {
+    background: var(--danger-soft);
+  }
+  .danger-btn {
+    background: #ef4444;
+  }
+  .danger-btn:hover {
+    background: #dc2626;
+  }
+  .note {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 6px;
+  }
